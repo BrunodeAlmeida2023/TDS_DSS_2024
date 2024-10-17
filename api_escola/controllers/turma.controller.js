@@ -42,7 +42,7 @@ module.exports = ({
         if (GiveIdCon) {
             response.status(200).send(GiveIdCon)
         } else {
-            response.status(200).send("Turma inexistente!")
+            response.status(200).send("Id não localizado no banco")
         }
     },
     deleteEach: (request, response) => {

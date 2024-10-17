@@ -1,46 +1,50 @@
+const alunoController = require("./aluno.controller");
 
-const Professor = [];
+const Matriculas = [];
 
 let O = 1;
 
 module.exports = ({
     cadastro: (request, response) => {
         const {
-            desc
+            desc, AlunoId, TurmaId
         } = request.body
 
-        const Prof = {
-            desc, id: O
+        const Matri = {
+            desc, AlunoId, TurmaId, id: O
         }
 
         if (!desc) {
             response.status(400).send("DESC NAO INFORMADA!")
-        } else{
-            Prof.id = O++
-            Professor.push(Prof)
+        } else if(!AlunoId && !TurmaId ){
+            response.status(400).send("Id do aluno e da turma são obrigados para efetuar a matricula!")
+        } 
+        else{
+            Matri.id = O++
+            Matriculas.push(Matri)
         }
 
         response.status(200).send("Cadastrado com sucesso")
     },
     consultAll: (request, response) => {
-        response.status(200).send(Professor)
+        response.status(200).send(Matriculas)
     },
     consultEach: (request, response) => {
-        const GiveIdCon = Professor.find(Prof => Prof.id == request.params.id)
-        if (GiveIdCon) {
+        const GiveIdCon = Matriculas.find(Matri => Matri.id == request.params.id)
+        if (GiveIdCon && Matri.id > 0) {
             response.status(200).send(GiveIdCon)
         } else {
-            response.status(200).send("Professor inexistente!")
+            response.status(200).send("Id não localizado no banco")
         }
     },
     deleteEach: (request, response) => {
-        const GiveId = Professor.findIndex(Prof => Prof.id == request.params.id)
+        const GiveId = Matriculas.findIndex(Matri => Matri.id == request.params.id)
 
         if(GiveId !== -1){
-            Professor.splice(GiveId, 1)
-            response.status(200).send("Professor deletado")
+            Matriculas.splice(GiveId, 1)
+            response.status(200).send("Matricula deletada")
         }else{
-            response.status(404).send("Professor inexistente")
+            response.status(404).send("Matricula inexistente")
         }
     }
 })

@@ -4,7 +4,6 @@ const indexRoutes = require("./routes/index.routes")
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extends: false }));
 
 app.use("/escola", indexRoutes)
 
