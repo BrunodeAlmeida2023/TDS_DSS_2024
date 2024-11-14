@@ -1,10 +1,10 @@
 const routes = require("express").Router();
-const clienteController = require("../controllers/pedido.controller");
+const pedidoController = require("../controllers/pedido.controller");
 
-routes.post("/", clienteController.cadastro);
-routes.get("/", clienteController.consultar);
-routes.get("/:id([0-9]+", clienteController.buscaPorId);
-routes.put("/:id([0-9]+)", clienteController.atualizar);
-routes.delete("/:id([0-9]+)", clienteController.deletar);
+
+routes.post("/cadastrar", pedidoController.cadastrar);
+routes.get("/consultar", () => { });
+routes.put("/consultar/:id([0-9]+)", () => { });
+routes.delete("/deletar/:id([0-9]+)", () => { });
 
 module.exports = routes;

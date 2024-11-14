@@ -1,0 +1,27 @@
+CREATE DATABASE IF NOT EXISTS concessionaria;
+USE concessionaria;
+
+CREATE TABLE IF NOT EXISTS CLIENTE (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(15),
+    email VARCHAR(255) NULL
+);
+
+CREATE TABLE IF NOT EXISTS VEICULO (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    modelo VARCHAR(255) NOT NULL,
+    marca VARCHAR(255) NOT NULL,
+    ano INT NULL,
+    preco DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS PEDIDO (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    veiculo_id INT NOT NULL,
+    data_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pendente', 'em andamento', 'concluído', 'cancelado') DEFAULT 'pendente',
+    FOREIGN KEY (cliente_id) REFERENCES CLIENTE(id) ON DELETE CASCADE,
+    FOREIGN KEY (veiculo_id) REFERENCES VEICULO(id) ON DELETE CASCADE
+);
